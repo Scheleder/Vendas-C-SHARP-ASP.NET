@@ -7,9 +7,9 @@ using SalesWebMVC.Models;
 
 namespace SalesWebMVC.Data
 {
-    public class DepartmentContext : DbContext
+    public class SalesWebMvcContext : DbContext
     {
-        public DepartmentContext (DbContextOptions<DepartmentContext> options)
+        public SalesWebMvcContext (DbContextOptions<SalesWebMvcContext> options)
             : base(options)
         {
         }
