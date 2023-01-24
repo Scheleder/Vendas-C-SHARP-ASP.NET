@@ -1,13 +1,13 @@
-﻿@model SalesWebMVC.Models.Seller
+﻿@model SalesWebMvc.Models.Seller
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>@ViewData["Title"]</h2>
 
 <div>
-    <h4>@Model.Name</h4>
+    <h4>Seller: @Model.Name</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -34,9 +34,15 @@
         <dd>
             @Html.DisplayFor(model => model.BaseSalary)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit Seller</a> | 
+    <a asp-action="Index">Back to list</a>
 </div>

@@ -1,21 +1,21 @@
-﻿@model IEnumerable<SalesWebMVC.Models.Department>
+﻿@model IEnumerable<SalesWebMvc.Models.Department>
 
 @{
-    ViewData["Title"] = "Departments";
+    ViewData["Title"] = "Index";
 }
 
 <h2>Departments</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
-        <tr>
+        <tr class="text-warning">
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th></th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -33,3 +33,6 @@
 }
     </tbody>
 </table>
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New Department</a>
+</p>

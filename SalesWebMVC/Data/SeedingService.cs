@@ -1,23 +1,28 @@
-﻿using SalesWebMVC.Models;
-using SalesWebMVC.Models.Enums;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using SalesWebMvc.Models;
+using SalesWebMvc.Models.Enums;
 
-namespace SalesWebMVC.Data
+namespace SalesWebMvc.Data
 {
     public class SeedingService
     {
         private SalesWebMvcContext _context;
+
         public SeedingService(SalesWebMvcContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         public void Seed()
         {
-            if(_context.Department.Any() || _context.Seller.Any() || _context.SalesRecord.Any())
+            if (_context.Department.Any() ||
+                _context.Seller.Any() ||
+                _context.SalesRecord.Any())
             {
-                return; //DB já está populado!
+                return; // DB has been seeded
             }
 
             Department d1 = new Department(new int(), "Computers");
@@ -25,12 +30,12 @@ namespace SalesWebMVC.Data
             Department d3 = new Department(new int(), "Fashion");
             Department d4 = new Department(new int(), "Books");
 
-            Seller s1 = new Seller(new int(), "Bob Brown", "bob@gmail.com", new DateTime(1998, 4, 21), 1000.0, d1);
-            Seller s2 = new Seller(new int(), "Maria Green", "maria@gmail.com", new DateTime(1979, 12, 31), 3500.0, d2);
-            Seller s3 = new Seller(new int(), "Alex Grey", "alex@gmail.com", new DateTime(1988, 1, 15), 2200.0, d1);
-            Seller s4 = new Seller(new int(), "Martha Red", "martha@gmail.com", new DateTime(1993, 11, 30), 3000.0, d4);
-            Seller s5 = new Seller(new int(), "Donald Blue", "donald@gmail.com", new DateTime(2000, 1, 9), 4000.0, d3);
-            Seller s6 = new Seller(new int(), "Alex Pink", "bob@gmail.com", new DateTime(1997, 3, 4), 3000.0, d2);
+            Seller s1 = new Seller(new int(), "Bob Brown", "brown@gmail.com", new DateTime(1998, 4, 21), 1000.0, d1);
+            Seller s2 = new Seller(new int(), "Maria Green", "green@gmail.com", new DateTime(1979, 12, 31), 3500.0, d2);
+            Seller s3 = new Seller(new int(), "Alex Grey", "grey@gmail.com", new DateTime(1988, 1, 15), 2200.0, d1);
+            Seller s4 = new Seller(new int(), "Martha Red", "red@gmail.com", new DateTime(1993, 11, 30), 3000.0, d4);
+            Seller s5 = new Seller(new int(), "Donald Blue", "blue@gmail.com", new DateTime(2000, 1, 9), 4000.0, d3);
+            Seller s6 = new Seller(new int(), "Alex Pink", "pink@gmail.com", new DateTime(1997, 3, 4), 3000.0, d2);
 
             SalesRecord r1 = new SalesRecord(new int(), new DateTime(2018, 09, 25), 11000.0, SaleStatus.Billed, s1);
             SalesRecord r2 = new SalesRecord(new int(), new DateTime(2018, 09, 4), 7000.0, SaleStatus.Billed, s5);
@@ -63,7 +68,7 @@ namespace SalesWebMVC.Data
             SalesRecord r29 = new SalesRecord(new int(), new DateTime(2018, 10, 23), 12000.0, SaleStatus.Billed, s5);
             SalesRecord r30 = new SalesRecord(new int(), new DateTime(2018, 10, 12), 5000.0, SaleStatus.Billed, s2);
 
-            _context.Department.AddRange(d1, d2, d3, d4); //Adiciona vários
+            _context.Department.AddRange(d1, d2, d3, d4);
 
             _context.Seller.AddRange(s1, s2, s3, s4, s5, s6);
 
