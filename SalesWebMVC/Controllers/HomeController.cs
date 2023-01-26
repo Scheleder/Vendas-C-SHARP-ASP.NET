@@ -17,15 +17,18 @@ namespace SalesWebMvc.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Salles Web MVC App from C# Course";
-            ViewData["Professor"] = "Nelio Alves";
+            ViewData["Message"] = "Sales Web MVC Application - ASP.NET on C#";
+            ViewData["Developer"] = "João Scheleder Neto";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Email"] = "me@scheleder.com";
+            ViewData["Name"] = "João Scheleder Neto";
+            ViewData["website"] = "https//www.scheleder.com";
+            ViewData["Phone"] = "+55 41 991 248 571";
 
             return View();
         }

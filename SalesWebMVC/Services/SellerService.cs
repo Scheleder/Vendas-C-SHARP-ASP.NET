@@ -19,7 +19,15 @@ namespace SalesWebMvc.Services
 
         public async Task<List<Seller>> FindAllAsync()
         {
-            return await _context.Seller.ToListAsync();
+            var result = from obj in _context.Seller select obj;
+            
+            return await result
+                .Include(x => x.Department)
+                .OrderBy(x => x.Name)
+                .ToListAsync();
+
+            //return await _context.Seller.ToListAsync();
+
         }
 
         public async Task InsertAsync(Seller obj)
@@ -43,7 +51,7 @@ namespace SalesWebMvc.Services
             }
             catch (DbUpdateException e)
             {
-                throw new IntegrityException("Can't delete seller because he/she has sales");
+                throw new IntegrityException("Can't delete seller because he/she has sales. Msg:"+e);
             }
         }
 
