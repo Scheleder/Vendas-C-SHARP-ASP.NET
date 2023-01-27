@@ -17,7 +17,7 @@ namespace SalesWebMvc.Models
         [Required(ErrorMessage = "{0} required")]
         [Range(1.0, 200000.0, ErrorMessage = "{0} must be from {1} to {2}")]
         [Display(Name = "Amount")]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [DisplayFormat(DataFormatString = "US$ {0:F2}")]
         public double Amount { get; set; }
         public SaleStatus Status { get; set; }
         public Seller Seller { get; set; }
