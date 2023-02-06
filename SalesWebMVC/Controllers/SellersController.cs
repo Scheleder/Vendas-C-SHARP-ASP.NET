@@ -18,6 +18,7 @@ namespace SalesWebMvc.Controllers
 
         public SellersController(SellerService sellerService, DepartmentService departmentService)
         {
+            // cria instancia de services
             _sellerService = sellerService;
             _departmentService = departmentService;
         }
@@ -37,37 +38,43 @@ namespace SalesWebMvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)  //metodo assincrono
         {
+            // verifica se o modelo é válido
             if (!ModelState.IsValid)
             {
+                // algo errado, retorna ao form
                 var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
                 return View(viewModel);
             }
-            await _sellerService.InsertAsync(seller);
-            return RedirectToAction(nameof(Index));
+            await _sellerService.InsertAsync(seller); // adiciona o vendedor
+            return RedirectToAction(nameof(Index)); // redireciona para o metodo index
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id) //metodo assincrono
         {
+            // verifica se o id existe
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
+            // verifica se o vendedor existe
             var obj = await _sellerService.FindByIdAsync(id.Value);
+           
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
+            // devolve o objeto encontrado para a view
             return View(obj);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id) //deleta asincrono
         {
             try
             {

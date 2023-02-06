@@ -49,19 +49,20 @@ namespace SalesWebMvc.Models
             Department = department;
         }
 
-        public void AddSales(SalesRecord sr)
+        public void AddSales(SalesRecord sale)
         {
-            Sales.Add(sr);
+            Sales.Add(sale);
         }
 
-        public void RemoveSales(SalesRecord sr)
+        public void RemoveSales(SalesRecord sale)
         {
-            Sales.Remove(sr);
+            Sales.Remove(sale);
         }
 
         public double TotalSales(DateTime initial, DateTime final)
         {
-            return Sales.Where(sr => sr.Date >= initial && sr.Date <= final).Sum(sr => sr.Amount);
+            // retorna o valor total de vendas, no periodo
+            return Sales.Where(sale => sale.Date >= initial && sale.Date <= final).Sum(sale => sale.Amount);
         }
     }
 }

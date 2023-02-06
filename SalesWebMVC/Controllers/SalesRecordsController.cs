@@ -17,6 +17,7 @@ namespace SalesWebMvc.Controllers
 
         public SalesRecordsController(SalesRecordService salesRecordService, SellerService sellerService, DepartmentService departmentService)
         {
+            // instancia
             _salesRecordService = salesRecordService;
             _sellerService = sellerService;
             _departmentService = departmentService;
@@ -29,6 +30,7 @@ namespace SalesWebMvc.Controllers
 
         public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
         {
+            // verifica se as datas de filtro foram informadas
             if (!minDate.HasValue)
             {
                 minDate = new DateTime(DateTime.Now.Year, 1, 1);
@@ -37,14 +39,17 @@ namespace SalesWebMvc.Controllers
             {
                 maxDate = DateTime.Now;
             }
+
+            // formata a data
             ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
             ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
             var result = await _salesRecordService.FindByDateAsync(minDate, maxDate);
             return View(result);
         }
 
-        public async Task<IActionResult> GroupingSearch(DateTime? minDate, DateTime? maxDate)
+        public async Task<IActionResult> GroupingSearch(DateTime? minDate, DateTime? maxDate) // data opcional
         {
+            // verifica se as datas de filtro foram informadas
             if (!minDate.HasValue)
             {
                 minDate = new DateTime(DateTime.Now.Year, 1, 1);
@@ -53,6 +58,7 @@ namespace SalesWebMvc.Controllers
             {
                 maxDate = DateTime.Now;
             }
+            // formata a data
             ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
             ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
             var result = await _salesRecordService.FindByDateGroupingAsync(minDate, maxDate);
@@ -61,6 +67,7 @@ namespace SalesWebMvc.Controllers
 
         public async Task<IActionResult> SellerSearch(DateTime? minDate, DateTime? maxDate)
         {
+            // verifica se as datas de filtro foram informadas
             if (!minDate.HasValue)
             {
                 minDate = new DateTime(DateTime.Now.Year, 1, 1);
@@ -69,6 +76,7 @@ namespace SalesWebMvc.Controllers
             {
                 maxDate = DateTime.Now;
             }
+            // formata a data
             ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
             ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
             var result = await _salesRecordService.FindByDateSellerAsync(minDate, maxDate);
@@ -88,6 +96,8 @@ namespace SalesWebMvc.Controllers
             };
 
             ViewBag.Lista = new SelectList(list, "Value", "Text");
+            // preciso melhorar isto, puxar do enum?
+
             var sellers = await _sellerService.FindAllAsync();
             var viewModel = new SalesRecordFormViewModel { Sellers = sellers };
 
@@ -99,13 +109,15 @@ namespace SalesWebMvc.Controllers
             }
 
             ViewBag.Sellers = new SelectList(items, "Value", "Text");
+            // aqui também ver uma maneira de puxar os dados do vendedor com o seu departamento direto no service ....?
+            // estudar como montar isto!
 
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(SalesRecord salesRecord)
+        public async Task<IActionResult> Create(SalesRecord salesRecord)  // metodo create assincrono
         {
             if (!ModelState.IsValid)
             {

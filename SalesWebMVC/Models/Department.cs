@@ -27,6 +27,7 @@ namespace SalesWebMvc.Models
 
         public double TotalSales(DateTime initial, DateTime final)
         {
+            // retorna o total de vendas do vendedor no periodo
             return Sellers.Sum(seller => seller.TotalSales(initial, final));
         }
     }

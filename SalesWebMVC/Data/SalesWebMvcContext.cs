@@ -16,5 +16,7 @@ namespace SalesWebMvc.Models
         public DbSet<Department> Department { get; set; }
         public DbSet<Seller> Seller { get; set; }
         public DbSet<SalesRecord> SalesRecord { get; set; }
+
+        // Seleciona o contexto do Banco de Dados
     }
 }

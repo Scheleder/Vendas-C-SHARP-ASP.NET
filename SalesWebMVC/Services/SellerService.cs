@@ -21,6 +21,7 @@ namespace SalesWebMvc.Services
         {
             var result = from obj in _context.Seller select obj;
             
+            // retorna vendedores, incluindo seus departamentos e ordenando pelo nome
             return await result
                 .Include(x => x.Department)
                 .OrderBy(x => x.Name)
@@ -38,6 +39,7 @@ namespace SalesWebMvc.Services
 
         public async Task<Seller> FindByIdAsync(int id)
         {
+            // retorna vendedor de existir
             return await _context.Seller.Include(obj => obj.Department).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
@@ -45,8 +47,11 @@ namespace SalesWebMvc.Services
         {
             try
             {
+                // busca o vendedor
                 var obj = await _context.Seller.FindAsync(id);
+                // exclui o vendedor
                 _context.Seller.Remove(obj);
+                // salva as alterações
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException e)
@@ -60,10 +65,12 @@ namespace SalesWebMvc.Services
             bool hasAny = await _context.Seller.AnyAsync(x => x.Id == obj.Id);
             if (!hasAny)
             {
+                // se não existir, msg de erro
                 throw new NotFoundException("Id not found");
             }
             try
             {
+                // atualiza dados do vendedor e salva
                 _context.Update(obj);
                 await _context.SaveChangesAsync();
             }

@@ -17,6 +17,7 @@ namespace SalesWebMvc.Services
 
         public async Task<List<Department>> FindAllAsync()
         {
+            // Retorna lista de departamentos ordenados pelo nome
             return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
     }

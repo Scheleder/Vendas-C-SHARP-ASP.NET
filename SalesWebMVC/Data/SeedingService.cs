@@ -22,7 +22,7 @@ namespace SalesWebMvc.Data
                 _context.Seller.Any() ||
                 _context.SalesRecord.Any())
             {
-                return; // DB has been seeded
+                return; // Database já está populado!
             }
 
             Department d1 = new Department(new int(), "Computers");
